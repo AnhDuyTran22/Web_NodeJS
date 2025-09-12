@@ -1,0 +1,24 @@
+{
+  "name": "project_web",
+  "version": "1.0.0",
+  "description": "nodejs pro anhduy",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnhDuyTran22/Web_NodeJS.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mongodb"
+  ],
+  "author": "anhduytran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnhDuyTran22/Web_NodeJS/issues"
+  },
+  "homepage": "https://github.com/AnhDuyTran22/Web_NodeJS#readme"
+}
