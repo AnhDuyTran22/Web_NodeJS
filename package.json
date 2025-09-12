@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/AnhDuyTran22/Web_NodeJS/issues"
   },
-  "homepage": "https://github.com/AnhDuyTran22/Web_NodeJS#readme"
+  "homepage": "https://github.com/AnhDuyTran22/Web_NodeJS#readme",
+  "dependencies": {
+    "express": "5.0.1"
+  }
 }
