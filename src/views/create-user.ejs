@@ -17,15 +17,16 @@
         <form action="/handle-create-user" method="post">
             <div class="mb-3">
                 <label class="form-label">Name: </label>
-                <input type="text" class="form-control" name="name" placeholder="your name">
+
+                <input name="fullName" type="text" class="form-control" name="name" placeholder="your name">
             </div>
             <div class="mb-3">
                 <label class="form-label">Email </label>
-                <input type="email" class="form-control" name="email" placeholder="name@example.com">
+                <input name="Email" type="email" class="form-control" name="email" placeholder="name@example.com">
             </div>
             <div class="mb-3">
                 <label class="form-label">Address</label>
-                <textarea class="form-control" name="address" rows="2"></textarea>
+                <textarea name="Address" class="form-control" name="address" rows="2"></textarea>
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-warning">Submit</button>
