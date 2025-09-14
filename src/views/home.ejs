@@ -29,27 +29,36 @@
                 <th>Address</th>
                 <th>Action</th>
             </thead>
-             <tbody>
-                 <% users.forEach(function (user) { %>
-                     <tr>
-                         <td>
-                             <%= user.ID %>
-                         </td>
-                         <td>
-                             <%= user.name %>
-                         </td>
-                         <td>
-                             <%= user.email %>
-                         </td>
-                         <td>
-                             <%= user.address %>
-                         </td>
-                         <td>
-                             <button class="btn btn-danger">Delete</button>
-                         </td>
-                     </tr>
-                 <% }) %>
-             </tbody>
+            <tbody>
+                <% users.forEach(function (user) { %>
+                    <tr>
+                        <td>
+                            <%= user.ID %>
+                        </td>
+                        <td>
+                            <%= user.name %>
+                        </td>
+                        <td>
+                            <%= user.email %>
+                        </td>
+                        <td>
+                            <%= user.address %>
+                        </td>
+                        <td>
+                            <div style="display: flex; gap: 10px;">
+                                <form action="/handle-view-user/<%=user.ID %>" method="get">
+                                    <button type="submit" class="btn btn-warning">View </button>
+                                </form>
+                                <form action="/handle-delete-user/<%=user.ID %>" method="post">
+                                    <button type="submit" class="btn btn-danger">Delete </button>
+                                </form>
+                            </div>
+
+
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
 
 
         </table>

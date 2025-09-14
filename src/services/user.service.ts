@@ -1,4 +1,4 @@
-import getConnection from "../config/database"
+import getConnection from "config/database"
 
 const handleCreateUser = async (
     fullName: string,
@@ -18,12 +18,7 @@ const handleCreateUser = async (
         return []
     }
 
-
-
-
-
     // return result
-
 
 
 }
@@ -42,4 +37,38 @@ const getAllUsers = async () => {
 
 }
 
-export { handleCreateUser, getAllUsers }
+const handleDeleteUser = async (ID: string) => {
+    try {
+        const connection = await getConnection();
+        const sql = "DELETE FROM users WHERE `ID` = ? ";
+        const values = [ID];
+
+        const [result, fields] = await connection.execute(sql, values);
+
+        return result
+    } catch (err) {
+        console.log(err);
+        return [];
+
+    }
+
+}
+
+const getUserByID = async (ID: string) => {
+    try {
+        const connection = await getConnection();
+        const sql = "SELECT * FROM users WHERE `ID` = ? ";
+        const values = [ID];
+
+        const [result, fields] = await connection.execute(sql, values);
+        return result[0];
+    } catch (err) {
+        console.log(err);
+        return [];
+
+    }
+
+}
+
+
+export { handleCreateUser, getAllUsers, handleDeleteUser, getUserByID }

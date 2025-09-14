@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getAllUsers, handleCreateUser } from "services/user.service";
+import { getAllUsers, getUserByID, handleCreateUser, handleDeleteUser, } from "services/user.service";
 
 const getHomePage = async (req: Request, res: Response) => {
     const users = await getAllUsers()
@@ -16,16 +16,35 @@ const getCreateUserPage = (req: Request, res: Response) => {
 }
 
 const postCreateUserPage = async (req: Request, res: Response) => {
-    const { fullName, Email, Address } = req.body;
-    await handleCreateUser(fullName, Email, Address)
+
 
     return res.redirect("/");
+}
+
+const postDeleteUser = async (req: Request, res: Response) => {
+    const { ID } = req.params
+    await handleDeleteUser(ID)
+    return res.redirect("/");
+}
+
+const getViewUser = async (req: Request, res: Response) => {
+    const { ID } = req.params
+
+    const user = await getUserByID(ID)
+    return res.render("view-user.ejs", {
+        ID: ID,
+        user: user
+    })
+
 }
 
 export {
     getHomePage,
     getCreateUserPage,
+    handleCreateUser,
     postCreateUserPage,
-    getAllUsers
+    getAllUsers,
+    postDeleteUser,
+    getViewUser,
 
 };
