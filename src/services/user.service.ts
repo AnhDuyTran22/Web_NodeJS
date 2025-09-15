@@ -1,4 +1,4 @@
-import getConnection from "config/database"
+import getConnection from "../config/database"
 
 const handleCreateUser = async (
     fullName: string,
@@ -16,6 +16,8 @@ const handleCreateUser = async (
     } catch (err) {
         console.log(err);
         return []
+    } finally {
+        await connection.end();
     }
 
     // return result
@@ -44,6 +46,7 @@ const handleDeleteUser = async (ID: string) => {
         const values = [ID];
 
         const [result, fields] = await connection.execute(sql, values);
+        await connection.end();
 
         return result
     } catch (err) {
@@ -61,6 +64,7 @@ const getUserByID = async (ID: string) => {
         const values = [ID];
 
         const [result, fields] = await connection.execute(sql, values);
+        await connection.end();
         return result[0];
     } catch (err) {
         console.log(err);
@@ -70,5 +74,24 @@ const getUserByID = async (ID: string) => {
 
 }
 
+const updateUserByID = async (
+    ID: string, email: string, address: string, fullName: string
+) => {
+    try {
+        const connection = await getConnection();
+        const sql = "UPDATE `users` SET `name`= ?,`email`= ?,`address`= ? WHERE `ID` = ? ";
+        const values = [fullName, email, address, ID];
 
-export { handleCreateUser, getAllUsers, handleDeleteUser, getUserByID }
+        const [result, fields] = await connection.execute(sql, values);
+        await connection.end();
+        return result;
+    } catch (err) {
+        console.log(err);
+        return [];
+
+    }
+
+}
+
+
+export { handleCreateUser, getAllUsers, handleDeleteUser, getUserByID, updateUserByID }
