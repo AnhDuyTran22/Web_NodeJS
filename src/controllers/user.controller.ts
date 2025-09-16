@@ -11,8 +11,13 @@ const getHomePage = async (req: Request, res: Response) => {
 
 }
 
-const getCreateUserPage = (req: Request, res: Response) => {
-    return res.render("create-user");
+const getCreateUserPage = async (req: Request, res: Response) => {
+    const roles = await getAllUsers();
+
+    console.log(roles)
+    return res.render("admin/user/create.ejs", {
+        roles
+    });
 }
 
 const postCreateUserPage = async (req: Request, res: Response) => {
