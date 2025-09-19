@@ -17,9 +17,11 @@ const getAdminUserPage = async (req: Request, res: Response) => {
 }
 
 const getAdminProductPage = async (req: Request, res: Response) => {
+    // TODO: Get products from database when product service is ready
+    const products = []; // Empty array for now
 
     return res.render("admin/product/show.ejs", {
-
+        products: products
     });
 
 }
@@ -32,7 +34,20 @@ const getAdminOrderPage = async (req: Request, res: Response) => {
 
 }
 
+const getAdminCreateProductPage = async (req: Request, res: Response) => {
+    // Display create product form
+    return res.render("admin/product/create.ejs");
+}
 
+const postCreateProductPage = async (req: Request, res: Response) => {
+    // Handle product creation
+    const { name, price, detailDesc, shortDesc, quantity, factory, target } = req.body;
+    const file = req.file;
+    const image = file?.filename ?? "";
 
+    // TODO: Add product creation logic here
 
-export { getDashboardPage, getAdminUserPage, getAdminOrderPage, getAdminProductPage }
+    return res.redirect("/admin/product");
+}
+
+export { getDashboardPage, getAdminUserPage, getAdminOrderPage, getAdminProductPage, getAdminCreateProductPage, postCreateProductPage }

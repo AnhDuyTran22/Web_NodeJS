@@ -2,12 +2,9 @@ import { Request, Response } from "express";
 import { getAllUsers, getUserByID, handleCreateUser, handleDeleteUser, updateUserByID, getAllRole } from "../services/user.service";
 
 const getHomePage = async (req: Request, res: Response) => {
-    const users = await getAllUsers()
 
     // x <- y 
-    return res.render("home", {
-        users: users
-    });
+    return res.render("client/home/show.ejs",);
 
 }
 
@@ -23,35 +20,40 @@ const getCreateUserPage = async (req: Request, res: Response) => {
 const postCreateUserPage = async (req: Request, res: Response) => {
     const { fullName, username, phone, role, address } = req.body;
     const file = req.file;
-    const avartar = file?.filename ?? "";
+    const avatar = file?.filename ?? "";
     // Create user with the extracted data
-    // const a = await handleCreateUser(fullName, Email, Address);
-    await handleCreateUser(fullName, username, address, phone, avartar);
-    return res.redirect("/");
+    await handleCreateUser(fullName, username, address, phone, avatar, role);
+    return res.redirect("/admin/user");
 }
 
 const postDeleteUser = async (req: Request, res: Response) => {
     const { ID } = req.params
     await handleDeleteUser(ID)
-    return res.redirect("/");
+    return res.redirect("/admin/user/");
 }
 
 const getViewUser = async (req: Request, res: Response) => {
     const { ID } = req.params
 
-    const user = await getUserByID(ID)
-    return res.render("view-user.ejs", {
+    const user = await getUserByID(ID);
+    const roles = await getAllRole();
+
+    return res.render("admin/user/detail.ejs", {
         ID: ID,
-        user: user
+        user: user,
+        roles: roles
     })
 
 }
 
 const postUpdateUser = async (req: Request, res: Response) => {
-    const { ID, Email, Address, fullName } = req.body;
-    // update user by id  
-    await updateUserByID(ID, Email, Address, fullName);
-    return res.redirect("/");
+    const { id, fullName, phone, role, address } = req.body;
+    const file = req.file;
+    const avatar = file?.filename ?? undefined;
+
+    // Call updateUserByID with correct parameter order: id, address, fullName, phone, avatar, role
+    await updateUserByID(id, address, fullName, phone, avatar, role);
+    return res.redirect("/admin/user");
 
 }
 
@@ -65,5 +67,6 @@ export {
     postDeleteUser,
     getViewUser,
     postUpdateUser,
+    getAllRole,
 
 };

@@ -1,30 +1,38 @@
 import { prisma } from "config/client";
 import { ACCOUNT_TYPE } from "config/constant";
+import bcrypt from 'bcrypt';
+const saltRounds = 10;
 
+
+const hashPassword = async (plainText: string) => {
+    return await bcrypt.hash(plainText, saltRounds)
+}
 
 
 
 
 const handleCreateUser = async (
     fullName: string,
-    Email: string,
-    Address: string,
+    username: string,
+    address: string,
     phone: string,
-    avatar: string
+    avatar: string,
+    role: string,
 ) => {
 
     // insert into database
 
-
+    const defaultPassword = await hashPassword("123456");
     const newUser = await prisma.user.create({
         data: {
             fullName: fullName,
-            username: Email,
-            address: Address,
-            password: "123456",
+            username: username,
+            address: address,
+            password: defaultPassword,
             accountType: ACCOUNT_TYPE.SYSTEM,
             avatar: avatar,
             phone: phone,
+            roleId: +role
         }
     })
     return newUser;
@@ -54,18 +62,21 @@ const getUserByID = async (id: string) => {
 
 }
 
+
+
+
 const updateUserByID = async (
-    id: string, email: string, address: string, fullName: string
+    id: string, address: string, fullName: string, phone: string, avatar: string, role: string
 ) => {
     try {
         const updatedUser = await prisma.user.update({
             where: { id: +id },
             data: {
                 fullName: fullName,
-                username: email,
+
                 address: address,
-                password: "",
-                accountType: ""
+                roleId: +role,
+                ...(avatar !== undefined && { avatar: avatar })
             }
         });
         return updatedUser;
@@ -78,4 +89,4 @@ const updateUserByID = async (
 }
 
 
-export { handleCreateUser, getAllUsers, handleDeleteUser, getUserByID, updateUserByID, getAllRole }
+export { handleCreateUser, getAllUsers, handleDeleteUser, getUserByID, updateUserByID, getAllRole, hashPassword }
