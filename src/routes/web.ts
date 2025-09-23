@@ -1,8 +1,10 @@
 import express, { Express } from "express";
 import { getCreateUserPage, getHomePage, postCreateUserPage, postDeleteUser, getViewUser, postUpdateUser } from "../controllers/user.controller";
 import { getDashboardPage, getAdminUserPage, getAdminOrderPage, getAdminProductPage, } from "../controllers/admin/dashboard.controller";
-import { postAdminCreateProductPage, getAdminCreateProductPage } from "controllers/admin/product.controller";
-import { describe } from "node:test";
+import { postAdminCreateProductPage, getAdminCreateProductPage, postDeleteProduct, getViewProduct, postUpdateProduct } from "../controllers/admin/product.controller";
+import { getProductPage } from "../controllers/client/product.controller";
+import { getProduct } from "../services/client/item.service";
+import { getLoginPage, getRegisterPage, postRegister } from "../controllers/client/auth.controller";
 const router = express.Router();
 
 const multer = require('multer')
@@ -33,7 +35,14 @@ const fileUploadMiddleware = (fieldName: string, destination?: string) => {
 }
 
 const webRoutes = (app: Express) => {
+
     router.get("/", getHomePage);
+    router.get("/product/:id", getProductPage);
+    router.get("/login", getLoginPage);
+    router.get("/register", getRegisterPage);
+    router.post("/register", postRegister);
+
+
     router.post("/admin/handle-delete-user/:ID", postDeleteUser);
     router.get("/admin/view-user/:ID", getViewUser);
     router.post("/admin/update-user", fileUploadMiddleware('avatar'), postUpdateUser);
@@ -47,8 +56,12 @@ const webRoutes = (app: Express) => {
     router.get("/admin/create-product", getAdminCreateProductPage);
     router.post("/admin/create-product", fileUploadMiddleware('image', 'images/product'), postAdminCreateProductPage);
 
-    router.get("/admin/product", getAdminProductPage)
-    router.get("/admin/order", getAdminOrderPage)
+    router.get("/admin/product", getAdminProductPage);
+    router.post("/admin/delete-product/:id", postDeleteProduct);
+    router.get("/admin/view-product/:id", getViewProduct);
+    router.post("/admin/update-product/:id", fileUploadMiddleware('image', 'images/product'), postUpdateProduct);
+    
+    router.get("/admin/order", getAdminOrderPage);
 
     app.use("/", router);
 };

@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        <%= product.name%>-Laptopshop
+    </title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/client/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/client/css/style.css" rel="stylesheet">
+
+    <!-- Premium Product Detail Styles -->
+    <style>
+        /* Global Styles */
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* Premium Header Styles */
+        .product-header {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 249, 250, 0.95) 100%);
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+        }
+
+        .back-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .back-btn {
+            background: rgba(13, 110, 253, 0.08);
+            border: 1.5px solid rgba(13, 110, 253, 0.2);
+            color: #0d6efd;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .back-btn:hover::before {
+            left: 100%;
+        }
+
+        .back-btn:hover {
+            background: #0d6efd;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(13, 110, 253, 0.4);
+            border-color: #0d6efd;
+        }
+
+        .back-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .back-btn:hover i {
+            transform: translateX(-2px);
+        }
+
+        .breadcrumb-header {
+            display: none;
+            color: #6c757d;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .brand-section {
+            text-align: right;
+        }
+
+        .brand-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #0d6efd, #6610f2, #20c997);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2px;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-tagline {
+            color: #6c757d;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-left: 20px;
+        }
+
+        .header-icon-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(108, 117, 125, 0.2);
+            background: rgba(248, 249, 250, 0.8);
+            color: #6c757d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .header-icon-btn:hover {
+            background: #0d6efd;
+            color: white;
+            border-color: #0d6efd;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+        }
+
+        /* Mobile Header Optimization */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 12px 0;
+            }
+            
+            .back-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .brand-logo {
+                font-size: 1.6rem;
+            }
+            
+            .brand-tagline {
+                font-size: 0.75rem;
+            }
+            
+            .header-actions {
+                gap: 8px;
+                margin-left: 12px;
+            }
+            
+            .header-icon-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .breadcrumb-header {
+                display: block;
+                margin-top: 4px;
+            }
+        }
+
+        /* Product Container */
+        .product-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        /* Image Section */
+        .product-image-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 500px;
+        }
+
+        .product-image-container {
+            position: relative;
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .main-image {
+            border-radius: 16px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        .main-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .main-image img {
+            transition: transform 0.4s ease;
+        }
+
+        .main-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Product Info Section */
+        .product-info-section {
+            padding: 40px;
+            background: white;
+        }
+
+        .product-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 2px;
+        }
+
+        .rating-stars i {
+            font-size: 1.1rem;
+            color: #ffc107;
+        }
+
+        .rating-text {
+            color: #6c757d;
+            font-weight: 500;
+            margin-left: 8px;
+        }
+
+        .product-price {
+            background: linear-gradient(135deg, #0d6efd, #6610f2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+
+        .product-description {
+            background: rgba(108, 117, 125, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #0d6efd;
+            margin-bottom: 2rem;
+        }
+
+        .product-description h5 {
+            color: #495057;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .product-description p {
+            color: #6c757d;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* Quantity & Cart Section */
+        .quantity-cart-section {
+            background: rgba(248, 249, 250, 0.5);
+            padding: 24px;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .quantity-label {
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .quantity-input {
+            display: flex;
+            align-items: center;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .quantity-btn {
+            width: 44px;
+            height: 44px;
+            border: none;
+            background: #f8f9fa;
+            color: #495057;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .quantity-btn:hover {
+            background: #0d6efd;
+            color: white;
+        }
+
+        .quantity-value {
+            width: 60px;
+            height: 44px;
+            border: none;
+            text-align: center;
+            font-weight: 600;
+            color: #495057;
+            background: white;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-add-cart {
+            flex: 1;
+            min-width: 200px;
+            height: 56px;
+            background: linear-gradient(135deg, #0d6efd, #6610f2);
+            border: none;
+            border-radius: 14px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-add-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(13, 110, 253, 0.4);
+        }
+
+        .btn-wishlist {
+            width: 56px;
+            height: 56px;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 14px;
+            color: #6c757d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .btn-wishlist:hover {
+            border-color: #dc3545;
+            color: #dc3545;
+            background: rgba(220, 53, 69, 0.05);
+        }
+
+        /* Product Specifications */
+        .product-specs {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .spec-title {
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: rgba(248, 249, 250, 0.5);
+            border-radius: 10px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .spec-value {
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .badge-stock {
+            background: linear-gradient(135deg, #198754, #20c997);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Description Tab */
+        .description-section {
+            margin-top: 3rem;
+        }
+
+        .description-tab {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .tab-header {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            padding: 20px 30px;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .tab-title {
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        .tab-content-area {
+            padding: 30px;
+            background: white;
+        }
+
+        .description-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #495057;
+            margin: 0;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb-nav {
+            background: transparent;
+            padding: 0;
+            margin-bottom: 2rem;
+        }
+
+        .breadcrumb {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 12px 20px;
+            border-radius: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .breadcrumb-item a {
+            color: #0d6efd;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb-item a:hover {
+            color: #6610f2;
+        }
+
+        .breadcrumb-item.active {
+            color: #6c757d;
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .product-title {
+                font-size: 2rem;
+            }
+            
+            .product-price {
+                font-size: 2.2rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn-add-cart {
+                min-width: 100%;
+            }
+            
+            .product-image-section,
+            .product-info-section {
+                padding: 20px;
+            }
+            
+            .spec-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-container {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+        <div class="spinner-grow text-primary" role="status"></div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Premium Header -->
+    <header class="product-header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Left Section: Back Button -->
+                <div class="back-section">
+                    <a href="/" class="back-btn">
+                        <i class="fa fa-arrow-left"></i>
+                        <span>Quay lại</span>
+                    </a>
+                    <div class="breadcrumb-header">
+                        Trang chủ / Sản phẩm
+                                </div>
+                            </div>
+
+                <!-- Right Section: Brand + Actions -->
+                <div class="d-flex align-items-center">
+                    <div class="brand-section">
+                        <div class="brand-logo">LaptopShop</div>
+                        <div class="brand-tagline">Premium Technology Store</div>
+                                </div>
+
+                    <div class="header-actions">
+                        <div class="header-icon-btn" title="Tìm kiếm">
+                            <i class="fa fa-search"></i>
+                        </div>
+                        <div class="header-icon-btn" title="Yêu thích">
+                            <i class="fa fa-heart"></i>
+                        </div>
+                        <div class="header-icon-btn" title="Giỏ hàng">
+                            <i class="fa fa-shopping-cart"></i>
+                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+    </header>
+
+    <!-- Main Product Section -->
+    <div class="container py-4">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="breadcrumb-nav">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a href="#">Sản phẩm</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><%=product.name%></li>
+            </ol>
+                                </nav>
+
+        <!-- Product Container -->
+        <div class="product-container">
+            <div class="row g-0">
+                <!-- Product Image Section -->
+                <div class="col-lg-6">
+                    <div class="product-image-section">
+                        <div class="product-image-container">
+                            <div class="main-image">
+                                <img src="/images/product/<%=product.image%>" class="img-fluid w-100" 
+                                     alt="<%=product.name%>" style="height: 400px; object-fit: cover;">
+                            </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                <!-- Product Info Section -->
+                <div class="col-lg-6">
+                    <div class="product-info-section">
+                        <!-- Product Title -->
+                        <h1 class="product-title"><%=product.name%></h1>
+
+                        <!-- Rating -->
+                        <div class="product-rating">
+                            <div class="rating-stars">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                <i class="fa fa-star text-muted"></i>
+                                        </div>
+                            <span class="rating-text">(4.0/5) • 127 đánh giá</span>
+                                        </div>
+
+                        <!-- Price -->
+                        <div class="product-price">
+                            <%= new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(product.price) %>
+                                    </div>
+
+                        <!-- Description -->
+                        <div class="product-description">
+                            <h5>Mô tả sản phẩm</h5>
+                            <p><%=product.shortDesc%></p>
+                                </div>
+
+                        <!-- Quantity & Cart Section -->
+                        <div class="quantity-cart-section">
+                            <label class="quantity-label">Số lượng:</label>
+                            <div class="quantity-selector">
+                                <div class="quantity-input">
+                                    <button class="quantity-btn btn-minus" type="button">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                    <input type="text" class="quantity-value" value="1" readonly>
+                                    <button class="quantity-btn btn-plus" type="button">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                        </div>
+                                    </div>
+                            
+                            <div class="action-buttons">
+                                <button class="btn-add-cart">
+                                    <i class="fa fa-shopping-cart me-2"></i>
+                                    Thêm vào giỏ hàng
+                                </button>
+                                <button class="btn-wishlist">
+                                    <i class="fa fa-heart"></i>
+                                </button>
+                                        </div>
+                                    </div>
+
+                        <!-- Product Specifications -->
+                        <div class="product-specs">
+                            <h5 class="spec-title">Thông số kỹ thuật</h5>
+                            <div class="spec-grid">
+                                <div class="spec-item">
+                                    <span class="spec-label">Thương hiệu:</span>
+                                    <span class="spec-value"><%=product.factory%></span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">Đối tượng:</span>
+                                    <span class="spec-value"><%=product.target%></span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">Tình trạng:</span>
+                                    <span class="badge-stock">Còn hàng</span>
+                            </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">Đã bán:</span>
+                                    <span class="spec-value"><%=product.sold%> sản phẩm</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                            </div>
+
+        <!-- Description Section -->
+        <div class="description-section">
+            <div class="description-tab">
+                <div class="tab-header">
+                    <h3 class="tab-title">Mô tả chi tiết sản phẩm</h3>
+                                </div>
+                <div class="tab-content-area">
+                    <p class="description-text"><%=product.detailDesc%></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Single Product End -->
+
+
+        <!-- Footer Start -->
+        <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
+            <div class="container py-5">
+                <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5) ;">
+                    <div class="row g-4">
+                        <div class="col-lg-3">
+                            <a href="#">
+                                <h1 class="text-primary mb-0">Fruitables</h1>
+                                <p class="text-secondary mb-0">Fresh products</p>
+                            </a>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="position-relative mx-auto">
+                                <input class="form-control border-0 w-100 py-3 px-4 rounded-pill" type="number"
+                                    placeholder="Your Email">
+                                <button type="submit"
+                                    class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white"
+                                    style="top: 0; right: 0;">Subscribe Now</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="d-flex justify-content-end pt-3">
+                                <a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i
+                                        class="fab fa-twitter"></i></a>
+                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i
+                                        class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i
+                                        class="fab fa-youtube"></i></a>
+                                <a class="btn btn-outline-secondary btn-md-square rounded-circle" href=""><i
+                                        class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-5">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-item">
+                            <h4 class="text-light mb-3">Why People Like us!</h4>
+                            <p class="mb-4">typesetting, remaining essentially unchanged. It was
+                                popularised in the 1960s with the like Aldus PageMaker including of Lorem Ipsum.</p>
+                            <a href="" class="btn border-secondary py-2 px-4 rounded-pill text-primary">Read More</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="d-flex flex-column text-start footer-item">
+                            <h4 class="text-light mb-3">Shop Info</h4>
+                            <a class="btn-link" href="">About Us</a>
+                            <a class="btn-link" href="">Contact Us</a>
+                            <a class="btn-link" href="">Privacy Policy</a>
+                            <a class="btn-link" href="">Terms & Condition</a>
+                            <a class="btn-link" href="">Return Policy</a>
+                            <a class="btn-link" href="">FAQs & Help</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="d-flex flex-column text-start footer-item">
+                            <h4 class="text-light mb-3">Account</h4>
+                            <a class="btn-link" href="">My Account</a>
+                            <a class="btn-link" href="">Shop details</a>
+                            <a class="btn-link" href="">Shopping Cart</a>
+                            <a class="btn-link" href="">Wishlist</a>
+                            <a class="btn-link" href="">Order History</a>
+                            <a class="btn-link" href="">International Orders</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-item">
+                            <h4 class="text-light mb-3">Contact</h4>
+                            <p>Address: 1429 Netus Rd, NY 48247</p>
+                            <p>Email: Example@gmail.com</p>
+                            <p>Phone: +0123 4567 8910</p>
+                            <p>Payment Accepted</p>
+                            <img src="img/payment.png" class="img-fluid" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+
+        <!-- Copyright Start -->
+        <div class="container-fluid copyright bg-dark py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        <span class="text-light"><a href="#"><i class="fas fa-copyright text-light me-2"></i>Your Site
+                                Name</a>, All right reserved.</span>
+                    </div>
+                    <div class="col-md-6 my-auto text-center text-md-end text-white">
+                        <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
+                        <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
+                        <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
+                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a> Distributed By
+                        <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright End -->
+
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
+                class="fa fa-arrow-up"></i></a>
+
+
+        <!-- JavaScript Libraries -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="/client/lib/easing/easing.min.js"></script>
+        <script src="/client/lib/waypoints/waypoints.min.js"></script>
+        <script src="/client/lib/lightbox/js/lightbox.min.js"></script>
+        <script src="/client/lib/owlcarousel/owl.carousel.min.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="/client/js/main.js"></script>
+    
+    <!-- Premium Product Interactions -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Quantity controls
+            const quantityInput = document.querySelector('.quantity-value');
+            const minusBtn = document.querySelector('.btn-minus');
+            const plusBtn = document.querySelector('.btn-plus');
+            
+            // Add to cart button animation
+            const addToCartBtn = document.querySelector('.btn-add-cart');
+            
+            // Quantity minus button
+            minusBtn?.addEventListener('click', function() {
+                let currentValue = parseInt(quantityInput.value);
+                if (currentValue > 1) {
+                    quantityInput.value = currentValue - 1;
+                    this.style.transform = 'scale(0.9)';
+                    setTimeout(() => this.style.transform = 'scale(1)', 150);
+                }
+            });
+            
+            // Quantity plus button
+            plusBtn?.addEventListener('click', function() {
+                let currentValue = parseInt(quantityInput.value);
+                if (currentValue < 99) {
+                    quantityInput.value = currentValue + 1;
+                    this.style.transform = 'scale(0.9)';
+                    setTimeout(() => this.style.transform = 'scale(1)', 150);
+                }
+            });
+            
+            // Add to cart button click effect
+            addToCartBtn?.addEventListener('click', function() {
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="fa fa-spinner fa-spin me-2"></i>Đang thêm...';
+                this.style.background = 'linear-gradient(135deg, #198754, #20c997)';
+                
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fa fa-check me-2"></i>Đã thêm vào giỏ!';
+                }, 1000);
+                
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.style.background = 'linear-gradient(135deg, #0d6efd, #6610f2)';
+                }, 2500);
+            });
+            
+            // Wishlist button toggle
+            const wishlistBtn = document.querySelector('.btn-wishlist');
+            wishlistBtn?.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('fa-heart')) {
+                    icon.classList.remove('fa-heart');
+                    icon.classList.add('fas', 'fa-heart');
+                    this.style.color = '#dc3545';
+                    this.style.borderColor = '#dc3545';
+                    this.style.background = 'rgba(220, 53, 69, 0.1)';
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('fa-heart');
+                    this.style.color = '#6c757d';
+                    this.style.borderColor = '#e9ecef';
+                    this.style.background = 'white';
+                }
+            });
+            
+            // Image zoom effect on mobile
+            const productImage = document.querySelector('.main-image img');
+            productImage?.addEventListener('click', function() {
+                this.style.transform = this.style.transform === 'scale(1.2)' ? 'scale(1)' : 'scale(1.2)';
+            });
+            
+            // Smooth scroll for description
+            const descriptionSection = document.querySelector('.description-section');
+            if (descriptionSection) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                    });
+                });
+                
+                descriptionSection.style.opacity = '0';
+                descriptionSection.style.transform = 'translateY(20px)';
+                descriptionSection.style.transition = 'all 0.6s ease';
+                observer.observe(descriptionSection);
+            }
+
+            // Header interactions
+            const headerIconBtns = document.querySelectorAll('.header-icon-btn');
+            headerIconBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Add ripple effect
+                    const ripple = document.createElement('div');
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    ripple.style.left = '50%';
+                    ripple.style.top = '50%';
+                    ripple.style.width = '20px';
+                    ripple.style.height = '20px';
+                    ripple.style.marginLeft = '-10px';
+                    ripple.style.marginTop = '-10px';
+                    
+                    this.style.position = 'relative';
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+
+            // Header scroll effect
+            let lastScrollTop = 0;
+            const header = document.querySelector('.product-header');
+            
+            window.addEventListener('scroll', function() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (scrollTop > lastScrollTop && scrollTop > 100) {
+                    // Scrolling down
+                    header.style.transform = 'translateY(-100%)';
+                } else {
+                    // Scrolling up
+                    header.style.transform = 'translateY(0)';
+                }
+                
+                // Add shadow when scrolled
+                if (scrollTop > 10) {
+                    header.style.boxShadow = '0 4px 30px rgba(0,0,0,0.1)';
+                } else {
+                    header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.05)';
+                }
+                
+                lastScrollTop = scrollTop;
+            });
+
+            // Add ripple animation CSS
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ripple {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+
+</html>

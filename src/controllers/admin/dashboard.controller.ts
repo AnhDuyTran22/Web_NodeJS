@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { getAllUsers } from "services/user.service";
+import { getAllUsers } from "../../services/client/user.service";
+import { getProductList } from "../../services/admin/product.service";
 const getDashboardPage = async (req: Request, res: Response) => {
 
     return res.render("admin/dashboard/show.ejs", {
@@ -17,8 +18,7 @@ const getAdminUserPage = async (req: Request, res: Response) => {
 }
 
 const getAdminProductPage = async (req: Request, res: Response) => {
-    // TODO: Get products from database when product service is ready
-    const products = []; // Empty array for now
+    const products = await getProductList();
 
     return res.render("admin/product/show.ejs", {
         products: products

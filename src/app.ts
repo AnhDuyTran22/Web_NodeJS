@@ -2,6 +2,7 @@ import express from "express";
 import 'dotenv/config'
 import webRoutes from "routes/web";
 import initDatabase from "config/seed";
+import { z } from 'zod';
 
 
 const app = express();
@@ -24,7 +25,7 @@ webRoutes(app);
 // seeding data
 initDatabase();
 
-app.listen(8080, () => {
+app.listen(PORT, () => {
     console.log(`My app is running on port: ${PORT}`)
     console.log("env port: ", process.env.PORT)
 })
