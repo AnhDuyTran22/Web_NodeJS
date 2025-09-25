@@ -62,8 +62,7 @@
                                                     <label class="form-label">Role</label>
                                                     <select name="role" class="form-select" name="role">
                                                         <% roles.forEach((role,index)=> { %>
-                                                            <option value="<%= role.id %>" <%=role.id===user.roleId
-                                                                ? 'selected' : '' %>>
+                                                            <option value="<%= role.id %>" <%= role.id === user.roleId ? 'selected' : '' %>>
                                                                 <%= role.name %>
                                                             </option>
                                                             <% }) %>
@@ -95,8 +94,8 @@
 
                                                         <div class="mb-3">
                                                             <label class="form-label">Address</label>
-                                                            <textarea name="Address" class="form-control" name="address"
-                                                                rows="2">"<%= user.address>"</textarea>
+                                                            <textarea name="address" class="form-control"
+                                                                rows="2"><%= user.address || '' %></textarea>
                                                         </div>
                                                         <div class="mb-3">
                                                             <button type="submit"

@@ -1,6 +1,6 @@
 import { prisma } from "../../config/client";
 import { ACCOUNT_TYPE } from "../../config/constant";
-import { hashPassword } from "./user.service";
+import { hashPassword, comparePassword } from "./user.service";
 
 const isEmailExist = async (email: string) => {
     const user = await prisma.user.findUnique({
@@ -23,7 +23,7 @@ const registerNewUser = async (
     const userRole = await prisma.role.findUnique({
         where: { name: "USER" }
     });
-    
+
     if (userRole) {
         await prisma.user.create({
             data: {
@@ -39,6 +39,21 @@ const registerNewUser = async (
     }
 }
 
-export { registerNewUser, isEmailExist };
+
+
+const getUserWithRoleById = async (id: string) => {
+    const user = await prisma.user.findUnique({
+        where: { id: +id },
+        include: {
+            role: true
+        },
+        omit: {
+            password: true
+        }
+    })
+    return user;
+}
+
+export { registerNewUser, isEmailExist, getUserWithRoleById };
 
 

@@ -47,11 +47,13 @@
                                 <div class="col-6 mx-auto">
                                     <div>
 
-                                        <% errors.forEach(function (error) { %>
-                                            <div class="alert alert-danger mb-3">
-                                                <%= error %>
-                                            </div>
+                                        <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+                                            <% errors.forEach(function (error) { %>
+                                                <div class="alert alert-danger mb-3">
+                                                    <%= error %>
+                                                </div>
                                             <% }) %>
+                                        <% } %>
                                                 <h5 style="padding: 10px 0 ;">Views Details a product:</h5>
                                                 <form action="/admin/update-product" method="post"
                                                     enctype="multipart/form-data">

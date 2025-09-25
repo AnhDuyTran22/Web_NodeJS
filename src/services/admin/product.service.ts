@@ -1,4 +1,4 @@
-import { prisma } from "../../config/client";
+import { prisma } from "config/client";
 
 const createProduct = async ({
     name,
@@ -90,9 +90,5 @@ const updateProductById = async ({
 
 
 export {
-    createProduct, 
-    getProductList, 
-    handleDeleteProduct, 
-    getProductById,
-    updateProductById
+    createProduct, getProductList, handleDeleteProduct, getProductById, updateProductById
 }

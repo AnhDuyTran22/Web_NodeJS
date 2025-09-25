@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { RegisterSchema, TregisterSchema } from "../../validation/register.schema";
 import { registerNewUser } from "../../services/client/auth.service";
 
@@ -18,12 +18,18 @@ const getRegisterPage = async (req: Request, res: Response) => {
 }
 
 const getLoginPage = async (req: Request, res: Response) => {
-    return res.render("client/auth/login.ejs");
+
+    const { session } = req as any;
+    const message = session?.message ?? [];
+
+    return res.render("client/auth/login.ejs", {
+        message
+    });
 }
 
 const postRegister = async (req: Request, res: Response) => {
     const { fullName, email, password, confirmPassword } = req.body as TregisterSchema;
-    
+
     const validate = await RegisterSchema.safeParseAsync(req.body);
     if (!validate.success) {
         const errorsZod = validate.error.issues;
@@ -33,7 +39,7 @@ const postRegister = async (req: Request, res: Response) => {
             fullName, email, password, confirmPassword
         };
         return res.render("client/auth/register.ejs", {
-            errors, 
+            errors,
             oldData
         });
     }
@@ -47,14 +53,39 @@ const postRegister = async (req: Request, res: Response) => {
             fullName, email, password: "", confirmPassword: ""
         };
         return res.render("client/auth/register.ejs", {
-            errors, 
+            errors,
             oldData
         });
     }
 }
 
+
+
+const getSuccessRedirectPage = async (req: Request, res: Response) => {
+
+    const user = req.user as any;
+
+    if (user?.role?.name === "ADMIN") {
+        res.redirect("/admin")
+    } else res.redirect("/")
+}
+
+
+const postLogout = async (req: Request, res: Response, next: NextFunction) => {
+    req.logOut(function (err) {
+        if (err) {
+            return (err);
+        }
+        res.redirect('/');
+    });
+
+}
+
+
 export {
-    getLoginPage, 
+    getLoginPage,
     getRegisterPage,
-    postRegister
+    postRegister,
+    getSuccessRedirectPage,
+    postLogout
 }
